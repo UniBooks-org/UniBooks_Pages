@@ -347,6 +347,7 @@ input[type="range"]:focus-visible { outline: 3px solid #9CC4F2; outline-offset: 
 @media (max-width: 700px) { .team { grid-template-columns: 1fr; } }
 .avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(150deg, #1976D2, #0D3E73); color: #fff; display: grid; place-items: center; font-weight: 600; font-size: 24px; margin-bottom: 16px; }
 .ruolo { color: var(--primary); font-size: 14.5px; font-weight: 500; margin-top: 4px; }
+.card p.area { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; background: var(--tinta-blu); color: var(--primary); font-weight: 600; font-size: 14.5px; padding: 6px 14px; border-radius: 999px; }
 
 .chiusura { background: linear-gradient(120deg, #1976D2, #1259A9, #0D3E73, #1259A9); background-size: 300% 300%; animation: sfuma 12s ease infinite; color: #fff; border-radius: 34px; padding: 80px 40px; text-align: center; }
 @keyframes sfuma { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
