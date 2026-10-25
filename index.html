@@ -6,243 +6,18 @@
 <title>UniThread — Il marketplace dei libri universitari</title>
 <meta name="description" content="UniThread è l'app dove gli studenti della stessa università comprano e vendono libri di corso usati: chat, offerte, pagamento protetto e scambio di persona con QR. Si parte dal Politecnico di Milano.">
 <meta name="theme-color" content="#1259A9">
-<meta name="color-scheme" content="light">
 <meta property="og:title" content="UniThread — Il marketplace dei libri universitari">
 <meta property="og:description" content="Compra e vendi libri di corso usati con gli studenti del tuo ateneo. Pagamento protetto, scambio di persona.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://unithread.it/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231565C0'/%3E%3Cpath d='M16 13a2 2 0 0 1 2-2h20v34l-9-4.6L16 51z' fill='%23fff'/%3E%3Cpath d='M39.5 11H46a2 2 0 0 1 2 2v38l-8.5-4.4z' fill='%23fff'/%3E%3C/svg%3E">
 <link href="fonts/fonts.css" rel="stylesheet">
-<style>
-  /* Colori presi dal tema chiaro dell'app (themeContext.tsx). */
-  :root {
-    color-scheme: light;
-    --primary: #1259A9;
-    --primary-light: #1976D2;
-    --primary-deep: #0D3E73;
-    --tinta-blu: #E8F0FE;
-    --tinta-verde: #E8F5E9;
-    --tinta-arancio: #FFF3E0;
-    --tinta-rossa: #FFF0F0;
-    --verde: #2E7D32;
-    --arancio: #E8A33D;
-    --bg: #F2F2F7;
-    --surface: #FFFFFF;
-    --text: #000000;
-    --text-2: #6E6E73;
-    --text-3: #AEAEB2;
-    --divider: rgba(60,60,67,0.18);
-    --riempimento: #E5E5EA;
-    --radius-card: 18px;
-    --shadow: 0 2px 8px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-lg: 0 18px 40px rgba(13,62,115,0.18), 0 4px 12px rgba(0,0,0,0.06);
-  }
-
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
-    font-size: 16px;
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-  }
-  h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.015em; line-height: 1.15; }
-  p { margin: 0; }
-  a { color: var(--primary); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
-
-  /* Barra in alto: vetro chiaro come la tab bar dell'app */
-  .nav {
-    position: sticky; top: 0; z-index: 10;
-    background: rgba(255,255,255,0.86);
-    -webkit-backdrop-filter: saturate(180%) blur(18px);
-    backdrop-filter: saturate(180%) blur(18px);
-    border-bottom: 1px solid var(--divider);
-    padding-top: env(safe-area-inset-top, 0px);
-  }
-  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
-  .brand { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; font-size: 19px; }
-  .brand:hover { text-decoration: none; }
-  .brand svg { width: 32px; height: 32px; flex: none; }
-  .nav-links { display: flex; gap: 22px; font-size: 15px; }
-  .nav-links a { color: var(--text-2); font-weight: 500; white-space: nowrap; }
-  .nav-links a:hover { color: var(--primary); text-decoration: none; }
-  @media (max-width: 760px) { .nav-links .opz { display: none; } }
-  @media (max-width: 480px) { .nav-links { gap: 16px; font-size: 14.5px; } .nav-links .opz2 { display: none; } }
-
-  /* Pulsanti a pillola */
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 13px 22px; border-radius: 999px; font-weight: 600; font-size: 16px;
-    border: none; cursor: pointer; transition: transform .15s ease, background .15s ease;
-  }
-  .btn:hover { text-decoration: none; transform: translateY(-1px); }
-  .btn:active { transform: scale(0.97); }
-  .btn-bianco { background: #fff; color: var(--primary); }
-  .btn-vetro { background: rgba(255,255,255,0.16); color: #fff; border: 1px solid rgba(255,255,255,0.35); }
-  .btn-blu { background: var(--primary); color: #fff; }
-
-  /* Hero blu, come l'intestazione del Mercato */
-  .hero {
-    background: radial-gradient(1200px 500px at 85% -10%, #2C7BD6 0%, transparent 60%), linear-gradient(160deg, #1565C0 0%, #1259A9 45%, #0D3E73 100%);
-    color: #fff;
-    overflow: hidden;
-  }
-  .hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; padding-top: 72px; padding-bottom: 80px; }
-  .pill-bianca { display: inline-block; background: #fff; color: var(--primary); font-weight: 600; font-size: 14px; padding: 6px 14px; border-radius: 999px; }
-  .hero h1 { font-size: clamp(36px, 5.4vw, 58px); margin: 20px 0 18px; }
-  .hero .lede { font-size: 19px; color: rgba(255,255,255,0.86); max-width: 34em; }
-  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-  .store-note { margin-top: 18px; font-size: 14px; color: rgba(255,255,255,0.7); }
-  @media (max-width: 860px) {
-    .hero .wrap { grid-template-columns: 1fr; padding-top: 48px; padding-bottom: 76px; gap: 40px; }
-  }
-
-  /* Telefono finto con il Mercato */
-  .phone {
-    width: 300px; max-width: 100%; margin: 0 auto;
-    background: #0B1220; border-radius: 46px; padding: 11px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.35);
-  }
-  .screen { background: var(--bg); border-radius: 36px; overflow: hidden; height: 600px; position: relative; color: var(--text); }
-  .scr-head { background: var(--primary); color: #fff; padding: 40px 16px 14px; }
-  .scr-head .t { font-size: 26px; font-weight: 600; margin-bottom: 10px; }
-  .scr-search { background: #fff; border-radius: 12px; padding: 9px 12px; font-size: 14px; color: var(--text-3); display: flex; gap: 8px; align-items: center; }
-  .scr-chips { display: flex; gap: 6px; margin-top: 10px; overflow: hidden; }
-  .scr-chips span { background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 999px; padding: 4px 10px; font-size: 12px; white-space: nowrap; font-weight: 500; }
-  .scr-list { padding: 12px; display: grid; gap: 10px; }
-  .book { background: #fff; border-radius: 16px; padding: 10px; display: flex; gap: 10px; box-shadow: var(--shadow); }
-  .cover { width: 54px; height: 72px; border-radius: 8px; flex: none; position: relative; }
-  .cover::after { content: ""; position: absolute; left: 6px; right: 6px; top: 10px; height: 3px; background: rgba(255,255,255,0.7); border-radius: 2px; box-shadow: 0 7px 0 rgba(255,255,255,0.45); }
-  .book .bt { font-size: 13.5px; font-weight: 600; line-height: 1.25; }
-  .book .ba { font-size: 12px; color: var(--text-2); margin: 2px 0 6px; }
-  .book .row { display: flex; align-items: center; gap: 6px; }
-  .book .pr { font-size: 16px; font-weight: 700; color: var(--primary); }
-  .badge { background: #E3F2FD; color: var(--primary); border-radius: 20px; padding: 2px 8px; font-size: 11px; font-weight: 500; }
-  .scr-tab {
-    position: absolute; left: 10px; right: 10px; bottom: 10px; height: 58px;
-    background: rgba(255,255,255,0.92); border-radius: 29px; box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-    display: flex; align-items: center; justify-content: space-around; padding: 0 8px;
-  }
-  .scr-tab i { width: 22px; height: 22px; border-radius: 6px; background: var(--text-3); display: block; opacity: .55; }
-  .scr-tab i.on { background: var(--primary); opacity: 1; }
-  .scr-tab b { width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: #fff; display: grid; place-items: center; font-size: 24px; font-weight: 400; }
-
-  /* Sezioni */
-  section { padding: 84px 0; }
-  .sec-head { max-width: 680px; margin-bottom: 40px; }
-  .kicker { color: var(--primary); font-weight: 600; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; }
-  .sec-head h2 { font-size: clamp(28px, 3.6vw, 40px); }
-  .sec-head p { color: var(--text-2); font-size: 18px; margin-top: 14px; }
-  .bianca { background: var(--surface); }
-  @media (max-width: 640px) { section { padding: 60px 0; } }
-
-  .card { background: var(--surface); border-radius: var(--radius-card); padding: 24px; box-shadow: var(--shadow); }
-  .bianca .card { background: var(--bg); box-shadow: none; }
-  .card h3 { font-size: 19px; margin-bottom: 8px; }
-  .card p { color: var(--text-2); font-size: 15.5px; }
-  .icona { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; margin-bottom: 16px; }
-  .icona svg { width: 24px; height: 24px; }
-  .i-blu { background: var(--tinta-blu); color: var(--primary); }
-  .i-verde { background: var(--tinta-verde); color: var(--verde); }
-  .i-arancio { background: var(--tinta-arancio); color: #C77700; }
-  .i-rossa { background: var(--tinta-rossa); color: #C62828; }
-
-  /* Numeri chiave */
-  .numeri { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: -44px; position: relative; }
-  .numero { background: var(--surface); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow-lg); }
-  .numero .n { font-size: 28px; font-weight: 600; color: var(--primary); letter-spacing: -0.02em; }
-  .numero .d { color: var(--text-2); font-size: 14.5px; margin-top: 2px; }
-  @media (max-width: 860px) { .numeri { grid-template-columns: repeat(2, 1fr); } }
-
-  /* Come funziona: due colonne compra / vendi */
-  .flussi { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .flusso h3 { font-size: 22px; display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
-  .tag { font-size: 13px; font-weight: 600; padding: 4px 10px; border-radius: 999px; }
-  .passi { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
-  .passi li { display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
-  .passi .num { width: 34px; height: 34px; border-radius: 50%; background: var(--primary); color: #fff; font-weight: 600; display: grid; place-items: center; font-size: 15px; }
-  .passi b { display: block; font-size: 16.5px; }
-  .passi span { color: var(--text-2); font-size: 15px; }
-  @media (max-width: 860px) { .flussi { grid-template-columns: 1fr; } }
-
-  .griglia { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  @media (max-width: 900px) { .griglia { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 600px) { .griglia { grid-template-columns: 1fr; } }
-
-  /* Sicurezza: elenco con spunte */
-  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
-  @media (max-width: 860px) { .split { grid-template-columns: 1fr; gap: 28px; } }
-  .spunte { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-  .spunte li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; }
-  .spunte li::before { content: ""; width: 26px; height: 26px; border-radius: 50%; background: var(--tinta-verde) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232E7D32' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/15px no-repeat; }
-  .spunte b { display: block; }
-  .spunte span { color: var(--text-2); font-size: 15px; }
-
-  /* Ricevuta d'esempio sui costi */
-  .ricevuta { background: var(--surface); border-radius: var(--radius-card); box-shadow: var(--shadow-lg); overflow: hidden; }
-  .ricevuta .top { background: var(--primary); color: #fff; padding: 18px 22px; }
-  .ricevuta .top small { opacity: .75; display: block; font-size: 13px; }
-  .ricevuta .top strong { font-size: 18px; font-weight: 600; }
-  .riga { display: flex; justify-content: space-between; gap: 12px; padding: 13px 22px; border-bottom: 1px solid var(--divider); font-size: 15.5px; }
-  .riga span:first-child { color: var(--text-2); }
-  .riga.tot { font-weight: 600; font-size: 17px; border-bottom: none; }
-  .riga.tot span:first-child { color: var(--text); }
-  .riga.verde span:last-child { color: var(--verde); font-weight: 600; }
-  .ricevuta .nota { padding: 14px 22px 18px; font-size: 13.5px; color: var(--text-2); background: var(--bg); }
-
-  /* CO2 */
-  .co2 { background: linear-gradient(150deg, #E8F5E9 0%, #F1F8E9 100%); border-radius: 28px; padding: 44px; display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: center; }
-  .co2 .grande { font-size: clamp(54px, 8vw, 84px); font-weight: 600; color: var(--verde); letter-spacing: -0.03em; line-height: 1; }
-  .co2 .grande small { font-size: 0.35em; font-weight: 500; letter-spacing: 0; }
-  .co2 h2 { font-size: clamp(24px, 3vw, 32px); margin-bottom: 10px; }
-  .co2 p { color: #3D5A40; }
-  .co2 .fonte { font-size: 13px; margin-top: 12px; opacity: .8; }
-  @media (max-width: 760px) { .co2 { grid-template-columns: 1fr; padding: 30px 24px; gap: 18px; } }
-
-  /* Prossimamente */
-  .presto { display: inline-block; background: var(--tinta-arancio); color: #A35F00; font-size: 12.5px; font-weight: 600; padding: 3px 10px; border-radius: 999px; margin-bottom: 12px; }
-
-  /* FAQ */
-  .faq { max-width: 780px; display: grid; gap: 10px; }
-  details { background: var(--surface); border-radius: 16px; box-shadow: var(--shadow); }
-  .bianca details { background: var(--bg); box-shadow: none; }
-  summary { list-style: none; cursor: pointer; padding: 18px 54px 18px 22px; font-weight: 600; font-size: 16.5px; position: relative; }
-  summary::-webkit-details-marker { display: none; }
-  summary::after { content: "+"; position: absolute; right: 22px; top: 50%; transform: translateY(-50%); font-size: 24px; font-weight: 400; color: var(--primary); transition: transform .2s; }
-  details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
-  details p { padding: 0 22px 20px; color: var(--text-2); font-size: 15.5px; }
-
-  /* Team */
-  .team { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--tinta-blu); color: var(--primary); display: grid; place-items: center; font-weight: 600; font-size: 22px; margin-bottom: 14px; }
-  .ruolo { color: var(--primary); font-size: 14px; font-weight: 500; margin-bottom: 10px; }
-  @media (max-width: 700px) { .team { grid-template-columns: 1fr; } }
-  .storia { margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 700px) { .storia { grid-template-columns: 1fr; } }
-
-  /* Chiusura e footer */
-  .chiusura { background: linear-gradient(160deg, #1565C0 0%, #1259A9 50%, #0D3E73 100%); color: #fff; border-radius: 28px; padding: 56px 40px; text-align: center; }
-  .chiusura h2 { font-size: clamp(28px, 4vw, 40px); }
-  .chiusura p { color: rgba(255,255,255,0.85); font-size: 18px; max-width: 36em; margin: 14px auto 28px; }
-  .chiusura .hero-actions { justify-content: center; margin-top: 0; }
-  @media (max-width: 600px) { .chiusura { padding: 40px 22px; } }
-
-  footer { padding: 48px 0 40px; color: var(--text-2); font-size: 14.5px; }
-  .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; }
-  .foot nav { display: flex; flex-wrap: wrap; gap: 8px 22px; }
-  .foot nav a { color: var(--text-2); }
-  .foot nav a:hover { color: var(--primary); }
-  .copy { margin-top: 22px; font-size: 13px; color: var(--text-3); }
-</style>
+<link href="stile/sito.css" rel="stylesheet">
+<link href="stile/home.css" rel="stylesheet">
 </head>
 <body>
 
+<div class="progresso" aria-hidden="true"></div>
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="UniThread, torna in cima">
@@ -254,385 +29,413 @@
       <a class="opz" href="#sicurezza">Sicurezza</a>
       <a class="opz" href="#costi">Costi</a>
       <a href="#faq">FAQ</a>
-      <a href="#contatti">Contatti</a>
+      <a class="btn btn-blu" href="#contatti">Contatti</a>
     </nav>
   </div>
 </header>
 
+<!-- ============ HERO ============ -->
 <div class="hero" id="top">
   <div class="wrap">
-    <div>
-      <span class="pill-bianca">Nato al Politecnico di Milano</span>
-      <h1>I libri del tuo corso, da chi li ha appena usati.</h1>
-      <p class="lede">
-        UniThread è l'app dove gli studenti della stessa università comprano e vendono i libri di corso usati.
-        Cerchi per materia, tratti in chat, paghi in modo protetto e vi scambiate il libro di persona, in università.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-bianco" href="#come-funziona">Scopri come funziona</a>
-        <a class="btn btn-vetro" href="#contatti">Scrivici</a>
-      </div>
-      <p class="store-note">In arrivo su App Store e Google Play.</p>
+    <span class="pill entra"><i>🎓</i> Nato al Politecnico di Milano</span>
+    <h1 data-parole>I libri del tuo corso, <span class="grad">da chi li ha appena usati.</span></h1>
+    <p class="lede entra" style="animation-delay:.7s">
+      Compra e vendi libri universitari usati con gli studenti del tuo ateneo.
+      Tratti in chat, paghi in modo protetto e vi scambiate il libro di persona.
+    </p>
+    <div class="hero-actions entra" style="animation-delay:.85s">
+      <a class="btn btn-blu" href="#come-funziona">Scopri come funziona</a>
+      <a class="btn btn-chiaro" href="#costi">Quanto costa?</a>
     </div>
+    <p class="store-note entra" style="animation-delay:1s"><span class="dot"></span> In arrivo su App Store e Google Play</p>
 
-    <div class="phone" aria-hidden="true">
-      <div class="screen">
-        <div class="scr-head">
-          <div class="t">Mercato</div>
-          <div class="scr-search">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#AEAEB2" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-            Titolo, autore o materia
-          </div>
-          <div class="scr-chips"><span>Analisi 1</span><span>Fisica</span><span>Chimica</span><span>Informatica</span></div>
-        </div>
-        <div class="scr-list">
-          <div class="book">
-            <div class="cover" style="background:linear-gradient(160deg,#E8A33D,#C77700)"></div>
-            <div>
-              <div class="bt">Analisi Matematica 1</div>
-              <div class="ba">Bramanti, Pagani, Salsa</div>
-              <div class="row"><span class="pr">€ 18</span><span class="badge">Ottimo</span></div>
+    <div class="palco" aria-hidden="true">
+      <div class="fluttua f1"><span class="ic" style="background:var(--tinta-arancio)">💬</span><div><b>Nuova offerta: 15 €</b><small>Analisi Matematica 1</small></div></div>
+      <div class="fluttua f2"><span class="ic" style="background:var(--tinta-verde)">🔒</span><div><b>Pagamento custodito</b><small>Fino allo scambio</small></div></div>
+      <div class="fluttua f3"><span class="ic" style="background:var(--tinta-blu)">📚</span><div><b>3 libri per Analisi 1</b><small>Nella tua università</small></div></div>
+      <div class="fluttua f4"><span class="ic" style="background:#FFF8E1">⭐</span><div><b>Scambio completato</b><small>Lascia una recensione</small></div></div>
+
+      <div class="phone" id="telefono-hero">
+        <div class="screen">
+          <div class="scr attiva">
+            <div class="scr-head">
+              <div class="t">Mercato</div>
+              <div class="scr-search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#AEAEB2" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Titolo, autore o materia</div>
+              <div class="scr-chips"><span class="on">Analisi 1</span><span>Fisica</span><span>Chimica</span><span>Informatica</span></div>
             </div>
-          </div>
-          <div class="book">
-            <div class="cover" style="background:linear-gradient(160deg,#1976D2,#0D3E73)"></div>
-            <div>
-              <div class="bt">Fisica 1. Meccanica e termodinamica</div>
-              <div class="ba">Mazzoldi, Nigro, Voci</div>
-              <div class="row"><span class="pr">€ 25</span><span class="badge">Buono</span></div>
+            <div class="scr-body">
+              <div class="book"><div class="cover c-oro"></div><div><div class="bt">Analisi Matematica 1</div><div class="ba">Bramanti, Pagani, Salsa</div><div class="riga-pr"><span class="pr">€ 18</span><span class="badge">Ottimo</span></div></div></div>
+              <div class="book"><div class="cover c-blu"></div><div><div class="bt">Fisica 1. Meccanica e termodinamica</div><div class="ba">Mazzoldi, Nigro, Voci</div><div class="riga-pr"><span class="pr">€ 25</span><span class="badge">Buono</span></div></div></div>
+              <div class="book"><div class="cover c-verde"></div><div><div class="bt">Chimica generale</div><div class="ba">Petrucci, Herring</div><div class="riga-pr"><span class="pr">€ 22</span><span class="badge">Ottimo</span></div></div></div>
+              <div class="book"><div class="cover c-viola"></div><div><div class="bt">Fondamenti di informatica</div><div class="ba">Ceri, Mandrioli, Sbattella</div><div class="riga-pr"><span class="pr">€ 15</span><span class="badge">Discreto</span></div></div></div>
             </div>
-          </div>
-          <div class="book">
-            <div class="cover" style="background:linear-gradient(160deg,#43A047,#2E7D32)"></div>
-            <div>
-              <div class="bt">Chimica generale</div>
-              <div class="ba">Petrucci, Herring</div>
-              <div class="row"><span class="pr">€ 22</span><span class="badge">Ottimo</span></div>
-            </div>
-          </div>
-          <div class="book">
-            <div class="cover" style="background:linear-gradient(160deg,#8E6CC8,#5E3FA0)"></div>
-            <div>
-              <div class="bt">Fondamenti di informatica</div>
-              <div class="ba">Ceri, Mandrioli, Sbattella</div>
-              <div class="row"><span class="pr">€ 15</span><span class="badge">Discreto</span></div>
-            </div>
+            <div class="scr-tab"><i class="on"></i><i></i><b>+</b><i></i><i></i></div>
           </div>
         </div>
-        <div class="scr-tab"><i class="on"></i><i></i><b>+</b><i></i><i></i></div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="wrap">
-  <div class="numeri">
-    <div class="numero"><div class="n">1 ateneo</div><div class="d">Vedi solo annunci di studenti della tua università</div></div>
-    <div class="numero"><div class="n">0 €</div><div class="d">per pubblicare un annuncio</div></div>
-    <div class="numero"><div class="n">100%</div><div class="d">pagamento custodito fino allo scambio</div></div>
-    <div class="numero"><div class="n">2,7 kg</div><div class="d">di CO₂ evitati per ogni libro riusato</div></div>
-  </div>
-</div>
-
-<section id="missione">
+<!-- ============ NUMERI ============ -->
+<section class="sez" style="padding-top:72px">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="numeri">
+      <div class="numero rivela"><div class="n" data-conta="1" data-suffisso=" ateneo">0</div><div class="d">Vedi solo annunci di studenti della tua università</div></div>
+      <div class="numero rivela" style="--ritardo:.08s"><div class="n" data-conta="0" data-suffisso=" €">0 €</div><div class="d">per scaricare l'app e pubblicare annunci</div></div>
+      <div class="numero rivela" style="--ritardo:.16s"><div class="n" data-conta="100" data-suffisso="%">0%</div><div class="d">dei pagamenti custoditi fino allo scambio</div></div>
+      <div class="numero rivela" style="--ritardo:.24s"><div class="n" data-conta="2.7" data-decimali="1" data-suffisso=" kg">0 kg</div><div class="d">di CO₂ evitati per ogni libro riusato</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PERCHÉ ============ -->
+<section class="sez bianca" id="perche">
+  <div class="wrap">
+    <div class="sez-head rivela">
       <div class="kicker">Perché UniThread</div>
       <h2>Un libro usato per un semestre non dovrebbe costare come uno nuovo.</h2>
-      <p>
-        Ogni anno migliaia di studenti comprano gli stessi manuali, li usano per un esame e poi li lasciano su uno scaffale.
-        L'anno dopo, chi segue lo stesso corso li ricompra a prezzo pieno. UniThread fa passare quei libri di mano in mano,
-        dentro la stessa università.
-      </p>
+      <p>Ogni anno migliaia di studenti comprano gli stessi manuali, li usano per un esame e li lasciano su uno scaffale. L'anno dopo, chi segue lo stesso corso li ricompra a prezzo pieno. UniThread li fa passare di mano in mano, dentro la stessa università.</p>
     </div>
-    <div class="griglia">
-      <div class="card">
-        <div class="icona i-blu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9h14v-9"/><path d="M9 19v-5h6v5"/></svg></div>
-        <h3>Solo la tua università</h3>
-        <p>Il Mercato mostra gli annunci degli studenti del tuo ateneo: libri dei tuoi corsi, venditori che puoi incontrare tra una lezione e l'altra.</p>
-      </div>
-      <div class="card">
-        <div class="icona i-verde"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 6.5c-1-1.5-2.8-2.5-5-2.5-3 0-5 1.6-5 4s2 3.3 5 4 5 1.6 5 4-2 4-5 4c-2.4 0-4.4-1.1-5.3-2.8"/></svg></div>
-        <h3>Risparmi davvero</h3>
-        <p>Chi compra spende meno del prezzo da nuovo, chi vende recupera parte della spesa invece di lasciare il libro a prendere polvere.</p>
-      </div>
-      <div class="card">
-        <div class="icona i-arancio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <h3>Nessun salto nel buio</h3>
-        <p>Paghi in app, ma il venditore riceve i soldi solo quando vi incontrate e confermate lo scambio con un QR. Fino ad allora puoi annullare.</p>
-      </div>
+    <div class="tre">
+      <div class="card rivela"><div class="presto" style="background:var(--tinta-blu);color:var(--primary)">La tua università</div><h3>Solo studenti del tuo ateneo</h3><p>Libri dei tuoi corsi, venditori che puoi incontrare tra una lezione e l'altra.</p></div>
+      <div class="card rivela" style="--ritardo:.1s"><div class="presto" style="background:var(--tinta-verde);color:var(--verde)">Risparmio</div><h3>Spendi meno, recuperi qualcosa</h3><p>Chi compra paga meno del prezzo da nuovo, chi vende recupera parte della spesa invece di lasciare il libro a prendere polvere.</p></div>
+      <div class="card rivela" style="--ritardo:.2s"><div class="presto">Tranquillità</div><h3>Nessun salto nel buio</h3><p>Paghi in app, ma il venditore riceve i soldi solo quando vi incontrate e confermate lo scambio con un QR.</p></div>
     </div>
   </div>
 </section>
 
-<section class="bianca" id="come-funziona">
+<!-- ============ COME FUNZIONA (racconto) ============ -->
+<section class="sez" id="come-funziona">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sez-head rivela">
       <div class="kicker">Come funziona</div>
       <h2>Dall'annuncio allo scambio, tutto in un'app.</h2>
-      <p>Pochi passaggi, sia che tu stia cercando un libro sia che tu voglia venderne uno.</p>
+      <div class="segmentato" role="tablist" aria-label="Scegli il percorso">
+        <span class="cursore" aria-hidden="true"></span>
+        <button role="tab" aria-selected="true" data-flusso="compra">Compro</button>
+        <button role="tab" aria-selected="false" data-flusso="vendi">Vendo</button>
+      </div>
     </div>
-    <div class="flussi">
-      <div class="card">
-        <div class="flusso">
-          <h3><span class="tag" style="background:var(--tinta-blu);color:var(--primary)">Compra</span> Trova il tuo libro</h3>
-          <ol class="passi">
-            <li><span class="num">1</span><div><b>Cerca nel Mercato</b><span>Per titolo, autore o materia. Con il piano di studi trovi in cima i filtri per gli esami che ti mancano.</span></div></li>
-            <li><span class="num">2</span><div><b>Scrivi al venditore</b><span>Chiedi informazioni in chat e, se il prezzo non ti convince, fai un'offerta.</span></div></li>
-            <li><span class="num">3</span><div><b>Paga in app</b><span>Con carta, tramite Stripe. I soldi restano custoditi e il venditore non li riceve ancora.</span></div></li>
-            <li><span class="num">4</span><div><b>Incontratevi e mostra il QR</b><span>Controlli il libro, mostri il tuo QR e il venditore lo scansiona. Solo allora riceve il pagamento.</span></div></li>
-          </ol>
+
+    <div class="racconto">
+      <div>
+        <div class="flusso" data-flusso="compra">
+          <div class="passo" data-scr="mercato"><span class="n">1</span><h3>Cerca il libro del tuo esame.</h3><p>Nel Mercato vedi solo i libri della tua università. Cerchi per titolo, autore o materia, e con il piano di studi trovi in cima i filtri per gli esami che ti mancano.</p><div class="shot"></div></div>
+          <div class="passo" data-scr="libro"><span class="n">2</span><h3>Guarda condizioni e venditore.</h3><p>Foto, condizioni del libro e recensioni di chi vende: sai cosa compri e da chi, prima di scrivere.</p><div class="shot"></div></div>
+          <div class="passo" data-scr="chat"><span class="n">3</span><h3>Tratta in chat.</h3><p>Fai una domanda, proponi un prezzo e mettetevi d'accordo su dove incontrarvi in università.</p><div class="shot"></div></div>
+          <div class="passo" data-scr="paga"><span class="n">4</span><h3>Paga in modo protetto.</h3><p>Paghi con carta tramite Stripe. I soldi restano custoditi: il venditore non li riceve finché lo scambio non è avvenuto.</p><div class="shot"></div></div>
+          <div class="passo" data-scr="qr"><span class="n">5</span><h3>Incontratevi e mostra il QR.</h3><p>Controlli il libro di persona, mostri il tuo QR e il venditore lo scansiona. Se qualcosa non va, non lo mostri e puoi annullare.</p><div class="shot"></div></div>
+          <div class="passo" data-scr="recensione"><span class="n">6</span><h3>Lascia una recensione.</h3><p>Valuti l'altro studente: le recensioni aiutano tutti a comprare e vendere tranquilli.</p><div class="shot"></div></div>
+        </div>
+        <div class="flusso" data-flusso="vendi" hidden>
+          <div class="passo" data-scr="isbn"><span class="n">1</span><h3>Scansiona il codice ISBN.</h3><p>Tocca il +, inquadra il codice a barre sul retro e titolo, autori ed editore si compilano da soli.</p><div class="shot"></div></div>
+          <div class="passo" data-scr="pubblica"><span class="n">2</span><h3>Foto, condizioni, prezzo.</h3><p>Scegli tra Ottimo, Buono, Discreto o Usurato: l'app ti suggerisce un prezzo in base al libro e agli altri annunci. Poi decidi tu.</p><div class="shot"></div></div>
+          <div class="passo" data-scr="offerta"><span class="n">3</span><h3>Ricevi offerte e messaggi.</h3><p>Ti arriva una notifica: accetti, rifiuti o rispondi in chat. Per incassare attivi i pagamenti una volta, con un modulo Stripe di pochi minuti e il tuo IBAN.</p><div class="shot"></div></div>
+          <div class="passo" data-scr="scansiona"><span class="n">4</span><h3>Scansiona e incassa.</h3><p>All'incontro scansioni il QR del compratore: lo scambio è confermato e il pagamento parte verso il tuo conto.</p><div class="shot"></div></div>
         </div>
       </div>
-      <div class="card">
-        <div class="flusso">
-          <h3><span class="tag" style="background:var(--tinta-verde);color:var(--verde)">Vendi</span> Libera lo scaffale</h3>
-          <ol class="passi">
-            <li><span class="num">1</span><div><b>Scansiona l'ISBN</b><span>Tocca il +, inquadra il codice a barre e titolo, autori e dati si compilano da soli.</span></div></li>
-            <li><span class="num">2</span><div><b>Foto, condizioni e prezzo</b><span>Scegli tra Ottimo, Buono, Discreto o Usurato: l'app ti suggerisce un prezzo, poi decidi tu.</span></div></li>
-            <li><span class="num">3</span><div><b>Attiva i pagamenti</b><span>Un modulo Stripe di pochi minuti con i tuoi dati e l'IBAN su cui arriveranno i soldi.</span></div></li>
-            <li><span class="num">4</span><div><b>Consegna e incassa</b><span>Vi incontrate in università, scansioni il QR del compratore e il pagamento parte verso di te.</span></div></li>
-          </ol>
+
+      <div class="racconto-telefono" aria-hidden="true">
+        <div class="phone" id="telefono-racconto">
+          <div class="screen">
+            <!-- Mercato -->
+            <div class="scr attiva" data-id="mercato">
+              <div class="scr-head">
+                <div class="t">Mercato</div>
+                <div class="scr-search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#AEAEB2" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>analisi</div>
+                <div class="scr-chips"><span class="on">Da superare</span><span>Analisi 1</span><span>Fisica</span></div>
+              </div>
+              <div class="scr-body">
+                <div class="book"><div class="cover c-oro"></div><div><div class="bt">Analisi Matematica 1</div><div class="ba">Bramanti, Pagani, Salsa</div><div class="riga-pr"><span class="pr">€ 18</span><span class="badge">Ottimo</span></div></div></div>
+                <div class="book"><div class="cover c-blu"></div><div><div class="bt">Esercitazioni di Analisi 1</div><div class="ba">Marcellini, Sbordone</div><div class="riga-pr"><span class="pr">€ 12</span><span class="badge">Buono</span></div></div></div>
+                <div class="book"><div class="cover c-verde"></div><div><div class="bt">Analisi Matematica 2</div><div class="ba">Bramanti, Pagani, Salsa</div><div class="riga-pr"><span class="pr">€ 20</span><span class="badge">Ottimo</span></div></div></div>
+              </div>
+              <div class="scr-tab"><i class="on"></i><i></i><b>+</b><i></i><i></i></div>
+            </div>
+            <!-- Dettaglio -->
+            <div class="scr" data-id="libro">
+              <div class="scr-head piccola"><span class="indietro">‹</span><span class="t">Dettagli</span></div>
+              <div style="padding-top:12px"><div class="det-cover c-oro"></div></div>
+              <div class="det">
+                <h4>Analisi Matematica 1</h4>
+                <div class="ba">Bramanti, Pagani, Salsa · Zanichelli</div>
+                <div class="riga-pr"><span class="pr" style="font-size:24px">€ 18</span><span class="badge">Ottimo</span></div>
+                <div class="vend"><span class="av">G</span><div><b>Giulia</b><div class="stelle">★★★★★ <span style="color:var(--text-2);letter-spacing:0">(12)</span></div></div></div>
+                <span class="bt-scr bt-pieno">Contatta il venditore</span>
+                <span class="bt-scr bt-tenue">Fai un'offerta</span>
+              </div>
+            </div>
+            <!-- Chat -->
+            <div class="scr" data-id="chat">
+              <div class="scr-head piccola"><span class="indietro">‹</span><span class="t">Giulia</span></div>
+              <div class="chat">
+                <div class="bolla io">Ciao! L'Analisi 1 è ancora disponibile?</div>
+                <div class="bolla lei">Sì! Pochissime sottolineature, a matita 🙂</div>
+                <div class="offerta"><small style="color:var(--text-2)">La tua offerta</small><div class="ov">€ 15</div><span class="stato-ok">✓ Accettata</span></div>
+                <div class="bolla lei">Domani alle 12 al Trifoglio?</div>
+                <div class="scrive"><span></span><span></span><span></span></div>
+              </div>
+            </div>
+            <!-- Pagamento -->
+            <div class="scr" data-id="paga">
+              <div class="scr-head piccola"><span class="indietro">‹</span><span class="t">Acquisto</span></div>
+              <div class="scr-body"><div class="book"><div class="cover c-oro"></div><div><div class="bt">Analisi Matematica 1</div><div class="ba">da Giulia</div><div class="riga-pr"><span class="pr">€ 15</span></div></div></div></div>
+              <div class="foglio-pag">
+                <div class="maniglia"></div>
+                <div class="r-pag"><span>Prezzo concordato</span><span>15,00 €</span></div>
+                <div class="r-pag"><span>Costo del pagamento</span><span>0,24 €</span></div>
+                <div class="r-pag tot"><span>Totale</span><span>15,24 €</span></div>
+                <div class="carta"><i></i>•••• 4242</div>
+                <span class="bt-scr bt-pieno">Paga 15,24 €</span>
+                <div class="scudo">🔒 Custodito fino allo scambio di persona</div>
+              </div>
+            </div>
+            <!-- QR -->
+            <div class="scr" data-id="qr">
+              <div class="scr-head piccola"><span class="indietro">‹</span><span class="t">Transazione</span></div>
+              <div class="qr-box"><svg class="qr" viewBox="0 0 25 25" shape-rendering="crispEdges"></svg><span class="linea-scan"></span></div>
+              <div class="qr-testo"><b>Mostra questo codice</b>Il venditore lo scansiona quando vi incontrate: solo allora riceve il pagamento.</div>
+            </div>
+            <!-- Recensione -->
+            <div class="scr" data-id="recensione">
+              <div class="festa">
+                <div class="cerchio">✓</div>
+                <h4>Scambio completato!</h4>
+                <p>Com'è andata con Giulia?</p>
+                <div class="stelle-grandi"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                <span class="bt-scr bt-pieno">Invia recensione</span>
+                <p style="margin-top:14px">🌱 Hai evitato 2,7 kg di CO₂</p>
+              </div>
+            </div>
+            <!-- ISBN -->
+            <div class="scr" data-id="isbn">
+              <div class="cam"></div>
+              <div class="mirino"><div class="barcode"><div class="barre"></div><small>9788808</small></div><span class="linea-scan rossa"></span></div>
+              <div class="cam-testo">Inquadra il codice ISBN</div>
+              <div class="toast"><span class="ic" style="background:var(--tinta-blu);color:var(--primary)">✓</span><div><b>Libro trovato</b>Analisi Matematica 1 · Zanichelli</div></div>
+            </div>
+            <!-- Pubblica -->
+            <div class="scr" data-id="pubblica">
+              <div class="scr-head piccola"><span class="t" style="margin-left:4px">Vendi un libro</span></div>
+              <div class="scr-body">
+                <div class="foto-riga"><span class="c-oro"></span><span class="c-oro" style="filter:brightness(.9)"></span><span class="add">+</span></div>
+                <div class="campo"><small>Titolo</small>Analisi Matematica 1</div>
+                <div class="campo"><small>Autori</small>Bramanti, Pagani, Salsa</div>
+                <div class="segmenti"><span class="on">Ottimo</span><span>Buono</span><span>Discreto</span><span>Usurato</span></div>
+                <div class="suggerito">Prezzo suggerito: <b>€ 18</b><br>Lo stesso libro su UniThread: €15–€20</div>
+                <span class="bt-scr bt-pieno" style="margin-top:0">Pubblica</span>
+              </div>
+            </div>
+            <!-- Offerta ricevuta -->
+            <div class="scr" data-id="offerta">
+              <div class="scr-head piccola"><span class="indietro">‹</span><span class="t">Luca</span></div>
+              <div class="notifica"><svg class="logo-mini" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#1565C0"/><path d="M16 13a2 2 0 0 1 2-2h20v34l-9-4.6L16 51z" fill="#fff"/><path d="M39.5 11H46a2 2 0 0 1 2 2v38l-8.5-4.4z" fill="#fff"/></svg><div><b>Nuova offerta: 15 €</b>Luca vuole il tuo Analisi Matematica 1</div></div>
+              <div class="chat" style="padding-top:2px">
+                <div class="bolla lei">Ciao! Faresti 15 €?</div>
+                <div class="offerta" style="align-self:flex-start"><small style="color:var(--text-2)">Offerta ricevuta</small><div class="ov">€ 15</div><div class="azioni"><span style="background:var(--tinta-rossa);color:var(--rosso)">Rifiuta</span><span style="background:var(--primary);color:#fff">Accetta</span></div></div>
+              </div>
+            </div>
+            <!-- Scansiona QR -->
+            <div class="scr" data-id="scansiona">
+              <div class="cam"></div>
+              <div class="mirino"><div class="qr-mirino"><svg class="qr" viewBox="0 0 25 25" shape-rendering="crispEdges"></svg></div><span class="linea-scan"></span></div>
+              <div class="cam-testo">Scansiona il QR del compratore</div>
+              <div class="toast"><span class="ic">€</span><div><b>Scambio confermato</b>14,76 € in arrivo sul tuo conto</div></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="funzioni">
+<!-- ============ FUNZIONI (bento) ============ -->
+<section class="sez bianca" id="funzioni">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sez-head rivela">
       <div class="kicker">Funzioni</div>
       <h2>Pensata per come studi.</h2>
-      <p>Non un'app dell'usato qualunque: ogni funzione parte dalla vita di uno studente universitario.</p>
+      <p>Ogni funzione parte dalla vita di uno studente universitario.</p>
     </div>
-    <div class="griglia">
-      <div class="card">
-        <div class="icona i-verde"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg></div>
-        <h3>Piano di studi</h3>
-        <p>Aggiungi le tue materie e segna gli esami superati: il Mercato ti propone subito i libri di quelli che ti mancano.</p>
+    <div class="bento">
+      <div class="tile t3 rivela inclina">
+        <div class="illu illu-verde"><div class="piano" id="piano">
+          <div class="fatto"><i></i><span>Analisi Matematica 1</span></div>
+          <div><i></i><span>Fisica Sperimentale</span><em>3 libri</em></div>
+          <div><i></i><span>Chimica</span><em>5 libri</em></div>
+        </div></div>
+        <h3>Il tuo piano di studi</h3>
+        <p>Aggiungi le materie e segna gli esami superati: in cima al Mercato trovi subito i libri di quelli che ti mancano.</p>
       </div>
-      <div class="card">
-        <div class="icona i-blu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5a1 1 0 0 1 1-1h2M17 4h2a1 1 0 0 1 1 1v2M20 17v2a1 1 0 0 1-1 1h-2M7 20H5a1 1 0 0 1-1-1v-2"/><path d="M8 8v8M11 8v8M14 8v8M17 8v8"/></svg></div>
+      <div class="tile t3 rivela inclina" style="--ritardo:.1s">
+        <div class="illu illu-rossa"><div class="isbn"><div class="barre"></div><small>978-88-08-</small><span class="linea-scan rossa"></span></div></div>
         <h3>Annuncio in un minuto</h3>
-        <p>La scansione del codice ISBN compila i dati del libro. Ti restano solo le foto, le condizioni e il prezzo.</p>
+        <p>Scansioni il codice ISBN e i dati del libro si compilano da soli. Restano foto, condizioni e prezzo, con un prezzo suggerito.</p>
       </div>
-      <div class="card">
-        <div class="icona i-arancio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/><path d="M9 11h6M9 14h4"/></svg></div>
+      <div class="tile t2 rivela inclina">
+        <div class="illu illu-arancio"><div class="bolle-tile"><div class="bolla lei">Faresti 15 €?</div><div class="bolla io">Va bene! 👍</div></div></div>
         <h3>Chat e offerte</h3>
-        <p>Scrivi al venditore in tempo reale, proponi un prezzo e accordatevi su dove incontrarvi.</p>
+        <p>Scrivi in tempo reale e proponi il tuo prezzo.</p>
       </div>
-      <div class="card">
-        <div class="icona i-blu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg></div>
-        <h3>Consegna con QR</h3>
-        <p>Il QR del compratore conferma che lo scambio è avvenuto davvero. È il momento in cui il pagamento passa al venditore.</p>
-      </div>
-      <div class="card">
-        <div class="icona i-arancio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg></div>
-        <h3>Recensioni</h3>
-        <p>Dopo ogni scambio puoi valutare l'altro studente. Chi vende con serietà si costruisce una reputazione visibile sul profilo.</p>
-      </div>
-      <div class="card">
-        <div class="icona i-rossa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>
+      <div class="tile t2 rivela inclina" style="--ritardo:.1s">
+        <div class="illu illu-blu"><div class="pila">
+          <div><i style="background:var(--primary)"></i><span><b>Nuovo messaggio</b>Giulia: ci vediamo alle 12?</span></div>
+          <div><i style="background:#34C759"></i><span><b>Libro venduto</b>Fisica 1 · 25 €</span></div>
+          <div><i style="background:#FF9500"></i><span><b>Nuovi libri</b>3 annunci nella tua università</span></div>
+        </div></div>
         <h3>Notifiche utili</h3>
-        <p>Messaggi, offerte ricevute o accettate, libro venduto, nuovi libri nella tua università: scegli tu quali ricevere.</p>
+        <p>Messaggi, offerte, vendite e nuovi libri: scegli tu quali ricevere.</p>
       </div>
-      <div class="card">
-        <div class="icona i-rossa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+      <div class="tile t2 rivela inclina" style="--ritardo:.2s">
+        <div class="illu illu-oro"><div class="stelle-tile">★★★★★</div></div>
+        <h3>Recensioni</h3>
+        <p>Dopo ogni scambio vi valutate a vicenda: la serietà si vede sul profilo.</p>
+      </div>
+      <div class="tile t2 mezza rivela inclina">
+        <div class="illu illu-rossa"><div class="salvati"><span class="c-blu"></span><span class="c-oro"></span><span class="c-verde"></span></div></div>
         <h3>Salvati</h3>
-        <p>Metti da parte gli annunci che ti interessano e ritrovali quando ti servono, senza ricominciare la ricerca.</p>
+        <p>Metti da parte gli annunci e ritrovali quando ti servono.</p>
       </div>
-      <div class="card">
-        <div class="icona i-verde"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 16-10-1 12-5 16-10 16"/><path d="M4 21c3-6 7-9 11-11"/></svg></div>
+      <div class="tile t2 mezza rivela inclina" style="--ritardo:.1s">
+        <div class="illu illu-verde"><span class="germoglio">🌱</span></div>
         <h3>Il tuo impatto</h3>
-        <p>Nella sezione "Il tuo impatto" vedi quanti libri hai comprato e venduto e quanta CO₂ hai contribuito a evitare.</p>
+        <p>Quanti libri hai comprato e venduto e quanta CO₂ hai evitato.</p>
       </div>
-      <div class="card">
-        <div class="icona i-blu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></div>
+      <div class="tile t2 rivela inclina" style="--ritardo:.2s">
+        <div class="illu illu-blu"><button class="tema-switch" data-tema="chiaro" aria-label="Cambia tema dell'esempio"><span class="chiaro">Chiaro</span><span class="scuro">Scuro</span></button></div>
         <h3>Chiara o scura</h3>
-        <p>L'interfaccia segue il tema del telefono, oppure scegli tu tra chiaro e scuro.</p>
+        <p>Segue il tema del telefono, o lo scegli tu. Prova a toccare.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="bianca" id="sicurezza">
-  <div class="wrap split">
-    <div>
+<!-- ============ SICUREZZA ============ -->
+<section class="sez" id="sicurezza">
+  <div class="wrap sicuro">
+    <div class="rivela">
+      <div class="qr-grande"><svg class="qr" viewBox="0 0 25 25" shape-rendering="crispEdges"></svg><span class="linea-scan"></span><div class="esito" id="esito-qr"><span><div>✓</div>Scambio confermato</span></div></div>
+    </div>
+    <div class="rivela" style="--ritardo:.1s">
       <div class="kicker">Sicurezza</div>
-      <h2 style="font-size:clamp(28px,3.6vw,40px)">Uno scambio, non un atto di fede.</h2>
-      <p style="color:var(--text-2);font-size:18px;margin-top:14px">
-        Comprare da uno sconosciuto, anche da un compagno di corso, chiede fiducia. UniThread la sostituisce con un meccanismo
-        semplice: il pagamento resta custodito finché lo scambio non avviene davvero, di persona.
-      </p>
+      <h2 class="titolo-grande">Uno scambio, non un atto di fede.</h2>
+      <ul class="spunte">
+        <li><div><b>Pagamento custodito</b><span>I soldi passano al venditore solo dopo la scansione del QR, mai prima.</span></div></li>
+        <li><div><b>Puoi annullare prima dello scambio</b><span>Se cambi idea o l'incontro salta, annulli dall'app e ricevi il rimborso del prezzo del libro.</span></div></li>
+        <li><div><b>Carte gestite da Stripe</b><span>I dati della carta li vede solo Stripe: UniThread non li riceve mai.</span></div></li>
+        <li><div><b>Email verificata e Mercato per università</b><span>Per usare l'app serve confermare l'email, e vedi solo il tuo ateneo.</span></div></li>
+        <li><div><b>Segnala e blocca</b><span>Puoi segnalare annunci o utenti e bloccare chi non vuoi più sentire. Le segnalazioni le controlliamo noi.</span></div></li>
+        <li><div><b>Niente pubblicità né tracciamento</b><span>I dati servono solo a far funzionare l'app, e il database è nell'Unione Europea.</span></div></li>
+      </ul>
     </div>
-    <ul class="spunte">
-      <li><div><b>Pagamento custodito</b><span>I soldi passano al venditore solo dopo la scansione del QR, mai prima.</span></div></li>
-      <li><div><b>Puoi annullare prima dello scambio</b><span>Se cambi idea o l'incontro salta, il compratore annulla dall'app e riceve il rimborso del prezzo del libro.</span></div></li>
-      <li><div><b>Pagamenti gestiti da Stripe</b><span>I dati della carta li vede solo Stripe, uno dei principali servizi di pagamento al mondo: UniThread non li riceve mai.</span></div></li>
-      <li><div><b>Account con email verificata</b><span>Per usare l'app serve confermare l'indirizzo email, e il Mercato è diviso per università.</span></div></li>
-      <li><div><b>Segnala e blocca</b><span>Puoi segnalare un annuncio o un utente e bloccare chi non vuoi più sentire. Le segnalazioni le controlliamo noi.</span></div></li>
-      <li><div><b>Dati in Europa</b><span>Il database dell'app è ospitato nell'Unione Europea, e i dati servono solo a far funzionare il servizio. Il sito non usa cookie né tracciamento.</span></div></li>
-    </ul>
   </div>
 </section>
 
-<section id="costi">
-  <div class="wrap split">
-    <div>
+<!-- ============ COSTI ============ -->
+<section class="sez bianca" id="costi">
+  <div class="wrap calc">
+    <div class="calc-testo rivela">
       <div class="kicker">Costi</div>
-      <h2 style="font-size:clamp(28px,3.6vw,40px)">Pubblicare è gratis. Paghi solo il costo del pagamento, diviso a metà.</h2>
-      <p style="color:var(--text-2);font-size:18px;margin-top:14px">
-        UniThread oggi non trattiene nessuna commissione sua. L'unico costo è quello di Stripe per gestire il pagamento con carta
-        (1,5% + 0,25 €), che si dividono compratore e venditore, metà ciascuno.
-      </p>
-      <p style="color:var(--text-2);font-size:15px;margin-top:14px">
-        Se un acquisto viene annullato, il compratore riceve il rimborso del prezzo del libro; la sua metà del costo di pagamento
-        non è rimborsabile perché Stripe la trattiene comunque.
-      </p>
+      <h2 class="titolo-grande">Pubblicare è gratis. Il resto lo vedi qui.</h2>
+      <p>UniThread oggi non trattiene nessuna commissione sua. L'unico costo è quello di Stripe per il pagamento con carta, 1,5% + 0,25 €, diviso a metà tra compratore e venditore.</p>
+      <p class="piccolo">Sposta il cursore per provare con il tuo prezzo. Se un acquisto viene annullato, il compratore riceve il rimborso del prezzo del libro; la sua metà del costo di pagamento non è rimborsabile perché Stripe la trattiene comunque.</p>
     </div>
-    <div class="ricevuta" aria-label="Esempio di costi per un libro da 20 euro">
-      <div class="top"><small>Esempio</small><strong>Un libro venduto a 20 €</strong></div>
-      <div class="riga"><span>Prezzo del libro</span><span>20,00 €</span></div>
-      <div class="riga"><span>Metà costo pagamento (compratore)</span><span>+ 0,28 €</span></div>
-      <div class="riga tot"><span>Il compratore paga</span><span>20,28 €</span></div>
-      <div class="riga"><span>Metà costo pagamento (venditore)</span><span>− 0,27 €</span></div>
-      <div class="riga tot verde"><span>Il venditore riceve</span><span>19,73 €</span></div>
-      <div class="nota">Costo totale del pagamento: 1,5% di 20 € + 0,25 € = 0,55 €, diviso tra le due parti.</div>
+    <div class="ricevuta rivela" style="--ritardo:.1s">
+      <div class="top">
+        <small>Prezzo del libro</small>
+        <div class="prezzo-grande" id="calc-prezzo">20 €</div>
+        <input class="cursore-prezzo" id="calc-cursore" type="range" min="1" max="150" value="20" step="1" aria-label="Prezzo del libro in euro">
+      </div>
+      <div class="riga"><span>Metà costo pagamento (compratore)</span><span id="calc-comp">+ 0,28 €</span></div>
+      <div class="riga tot"><span>Il compratore paga</span><span id="calc-tot">20,28 €</span></div>
+      <div class="riga"><span>Metà costo pagamento (venditore)</span><span id="calc-vend">− 0,27 €</span></div>
+      <div class="riga tot verde"><span>Il venditore riceve</span><span id="calc-netto">19,73 €</span></div>
+      <div class="nota" id="calc-nota">Costo totale del pagamento: 0,55 €, diviso tra le due parti.</div>
     </div>
   </div>
 </section>
 
-<section class="bianca" id="ambiente">
+<!-- ============ CO2 ============ -->
+<section class="sez" id="ambiente">
   <div class="wrap">
-    <div class="co2">
-      <div class="grande">2,7<small> kg CO₂e</small></div>
-      <div>
-        <h2>Ogni libro riusato è un libro in meno da stampare.</h2>
-        <p>
-          Produrre un libro nuovo emette in media circa 2,7 kg di CO₂ equivalente: più o meno quanto un'auto
-          in 17 km di strada. Con UniThread lo stesso libro serve a più studenti, uno dopo l'altro.
-        </p>
-        <p class="fonte">Stima usata nell'app. Per le auto: 161,7 g di CO₂/km, media del parco circolante (ISPRA, 2022).</p>
+    <div class="co2 rivela">
+      <div class="co2-grid">
+        <div>
+          <div class="kicker">Ambiente</div>
+          <h2>Ogni libro riusato è un libro in meno da stampare.</h2>
+          <p>Produrre un libro nuovo emette in media circa 2,7 kg di CO₂ equivalente. Con UniThread lo stesso libro serve a più studenti, uno dopo l'altro.</p>
+          <p class="fonte">Stima usata nell'app. Auto: 161,7 g di CO₂/km, media del parco circolante (ISPRA, 2022).</p>
+        </div>
+        <div class="co2-calc">
+          <label for="co2-cursore"><span>Libri usati invece che nuovi</span><span id="co2-n">5</span></label>
+          <input id="co2-cursore" type="range" min="1" max="40" value="5">
+          <div class="co2-out">
+            <div><div class="v" id="co2-kg">13,5</div><small>kg di CO₂ evitati</small></div>
+            <div><div class="v" id="co2-km">83</div><small>km in auto equivalenti</small></div>
+          </div>
+          <div class="strada" aria-hidden="true"><span>🚗</span></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="presto">
+<!-- ============ IN ARRIVO ============ -->
+<section class="sez bianca" id="presto">
   <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">In arrivo</div>
-      <h2>Dove stiamo andando.</h2>
-    </div>
-    <div class="griglia">
-      <div class="card">
-        <span class="presto">Prossimamente</span>
-        <h3>Ripetizioni tra studenti</h3>
-        <p>Trovare chi ti aiuta a preparare un esame, o guadagnare qualcosa insegnando le materie che hai già superato. Puoi già metterti in lista dall'app.</p>
-      </div>
-      <div class="card">
-        <span class="presto">Prossimamente</span>
-        <h3>Altri atenei</h3>
-        <p>Partiamo dal Politecnico di Milano. Poi, un'università alla volta, insieme alle community studentesche che vorranno portarci da loro.</p>
-      </div>
-      <div class="card">
-        <span class="presto">Ci stiamo pensando</span>
-        <h3>Il contatore della community</h3>
-        <p>Quanti libri hanno cambiato mano e quanta CO₂ abbiamo evitato tutti insieme, visibile a chiunque usi l'app.</p>
-      </div>
+    <div class="sez-head rivela"><div class="kicker">In arrivo</div><h2>Dove stiamo andando.</h2></div>
+    <div class="tre">
+      <div class="card rivela"><span class="presto">Prossimamente</span><h3>Ripetizioni tra studenti</h3><p>Trovare chi ti aiuta a preparare un esame, o guadagnare insegnando le materie che hai già superato. Puoi già metterti in lista dall'app.</p></div>
+      <div class="card rivela" style="--ritardo:.1s"><span class="presto">Prossimamente</span><h3>Altri atenei</h3><p>Partiamo dal Politecnico di Milano. Poi un'università alla volta, insieme alle community studentesche che vorranno portarci da loro.</p></div>
+      <div class="card rivela" style="--ritardo:.2s"><span class="presto">Ci stiamo pensando</span><h3>Il contatore della community</h3><p>Quanti libri hanno cambiato mano e quanta CO₂ abbiamo evitato tutti insieme, visibile a chiunque usi l'app.</p></div>
     </div>
   </div>
 </section>
 
-<section class="bianca" id="faq">
+<!-- ============ FAQ ============ -->
+<section class="sez" id="faq">
   <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Domande frequenti</div>
-      <h2>Le risposte veloci.</h2>
-    </div>
-    <div class="faq">
-      <details>
-        <summary>Chi può usare UniThread?</summary>
-        <p>Studenti universitari maggiorenni. Al momento del lancio l'app è pensata per il Politecnico di Milano; ti registri con la tua email e scegli la tua università.</p>
-      </details>
-      <details>
-        <summary>Quando esce l'app?</summary>
-        <p>A breve, insieme su App Store (iPhone) e Google Play (Android). Seguici su Instagram per sapere il giorno esatto.</p>
-      </details>
-      <details>
-        <summary>Quanto costa?</summary>
-        <p>Scaricare l'app e pubblicare annunci è gratis. Su ogni acquisto c'è solo il costo del pagamento con carta (1,5% + 0,25 €), diviso a metà tra compratore e venditore. Trovi un esempio nella sezione Costi.</p>
-      </details>
-      <details>
-        <summary>Come ricevo i soldi quando vendo?</summary>
-        <p>Attivi i pagamenti dal Profilo con un modulo Stripe, dove inserisci i tuoi dati e l'IBAN. Quando scansioni il QR del compratore il pagamento parte verso di te e arriva sul tuo conto nei tempi di Stripe.</p>
-      </details>
-      <details>
-        <summary>E se il libro non è come nella descrizione?</summary>
-        <p>Il libro lo controlli di persona prima di mostrare il QR. Se qualcosa non va, non confermi lo scambio e puoi annullare l'acquisto dall'app: ricevi il rimborso del prezzo del libro.</p>
-      </details>
-      <details>
-        <summary>Posso pagare in contanti o spedire il libro?</summary>
-        <p>No: in app il pagamento avviene con carta, così resta protetto fino allo scambio, e la consegna avviene di persona in università. È proprio questo che rende sicura la compravendita per entrambi.</p>
-      </details>
-      <details>
-        <summary>Come cancello il mio account?</summary>
-        <p>Dall'app, in Impostazioni, oppure dalla pagina <a href="delete-account.html">Elimina account</a> di questo sito.</p>
-      </details>
-      <details>
-        <summary>Come trattate i miei dati?</summary>
-        <p>Raccogliamo solo quello che serve a far funzionare l'app: nome, email, università, annunci, messaggi e transazioni. Niente pubblicità e niente tracciamento. Tutti i dettagli sono nella <a href="privacy-policy.html">Privacy Policy</a>.</p>
-      </details>
+    <div class="sez-head rivela"><div class="kicker">Domande frequenti</div><h2>Le risposte veloci.</h2></div>
+    <div class="faq rivela">
+      <details><summary>Chi può usare UniThread?</summary><div class="risposta"><p>Studenti universitari maggiorenni. Al lancio l'app è pensata per il Politecnico di Milano: ti registri con la tua email e scegli la tua università.</p></div></details>
+      <details><summary>Quando esce l'app?</summary><div class="risposta"><p>A breve, insieme su App Store (iPhone) e Google Play (Android). Seguici su Instagram per sapere il giorno esatto.</p></div></details>
+      <details><summary>Quanto costa?</summary><div class="risposta"><p>Scaricare l'app e pubblicare annunci è gratis. Su ogni acquisto c'è solo il costo del pagamento con carta (1,5% + 0,25 €), diviso a metà tra compratore e venditore. Puoi provare con il tuo prezzo nella sezione <a href="#costi">Costi</a>.</p></div></details>
+      <details><summary>Come ricevo i soldi quando vendo?</summary><div class="risposta"><p>Attivi i pagamenti dal Profilo con un modulo Stripe, dove inserisci i tuoi dati e l'IBAN. Quando scansioni il QR del compratore il pagamento parte verso di te e arriva sul conto nei tempi di Stripe.</p></div></details>
+      <details><summary>E se il libro non è come nella descrizione?</summary><div class="risposta"><p>Lo controlli di persona prima di mostrare il QR. Se qualcosa non va non confermi lo scambio e puoi annullare l'acquisto dall'app: ricevi il rimborso del prezzo del libro.</p></div></details>
+      <details><summary>Posso pagare in contanti o spedire il libro?</summary><div class="risposta"><p>No: il pagamento in app è con carta, così resta protetto fino allo scambio, e la consegna avviene di persona in università. È proprio questo che rende sicura la compravendita per entrambi.</p></div></details>
+      <details><summary>Come cancello il mio account?</summary><div class="risposta"><p>Dall'app, in Profilo → Impostazioni → Elimina account, oppure dalla pagina <a href="delete-account.html">Elimina account</a> di questo sito.</p></div></details>
+      <details><summary>Come trattate i miei dati?</summary><div class="risposta"><p>Raccogliamo solo quello che serve a far funzionare l'app: nome, email, università, annunci, messaggi e transazioni. Niente pubblicità e niente tracciamento. Tutti i dettagli sono nella <a href="privacy-policy.html">Privacy Policy</a>.</p></div></details>
     </div>
   </div>
 </section>
 
-<section id="team">
+<!-- ============ TEAM ============ -->
+<section class="sez bianca" id="team">
   <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Chi siamo</div>
-      <h2>Due studenti del Politecnico.</h2>
-    </div>
+    <div class="sez-head rivela"><div class="kicker">Chi siamo</div><h2>Due studenti del Politecnico.</h2><p>Da matricola, Fabrizio si è ritrovato a comprare libri nuovi che avrebbe usato per un semestre e poi mai più. Da lì l'idea di uno spazio per passarsi i libri tra studenti dello stesso ateneo.</p></div>
     <div class="team">
-      <div class="card">
-        <div class="avatar">FP</div>
-        <h3>Fabrizio Paveri Fontana</h3>
-        <div class="ruolo">Co-fondatore</div>
-        <p>Studente di Ingegneria Elettronica al Politecnico di Milano. Sviluppa UniThread insieme a Claudio e segue in particolare l'app per iPhone.</p>
-      </div>
-      <div class="card">
-        <div class="avatar">CC</div>
-        <h3>Claudio Consoli</h3>
-        <div class="ruolo">Co-fondatore</div>
-        <p>Studente di Ingegneria Aerospaziale al Politecnico di Milano. Sviluppa UniThread insieme a Fabrizio e segue in particolare l'app per Android.</p>
-      </div>
+      <div class="card rivela"><div class="avatar">FP</div><h3>Fabrizio Paveri Fontana</h3><div class="ruolo">Co-fondatore · App per iPhone</div><p>Studente di Ingegneria Elettronica al Politecnico di Milano.</p></div>
+      <div class="card rivela" style="--ritardo:.1s"><div class="avatar">CC</div><h3>Claudio Consoli</h3><div class="ruolo">Co-fondatore · App per Android</div><p>Studente di Ingegneria Aerospaziale al Politecnico di Milano.</p></div>
     </div>
-    <div class="storia">
-      <div class="card">
-        <h3>Com'è nata l'idea</h3>
-        <p>Da matricola al Politecnico, Fabrizio si è ritrovato a comprare nuovi libri di corso che avrebbe usato per un semestre e poi mai più. Da lì l'idea di uno spazio pensato apposta per gli studenti del proprio ateneo, per passarsi i libri invece di ricomprarli ogni anno.</p>
-      </div>
-      <div class="card">
-        <h3>La nostra visione</h3>
-        <p>Vogliamo che UniThread sia il primo posto a cui pensa uno studente italiano quando cerca, o deve rivendere, un libro di corso. Un ateneo alla volta, partendo dal Politecnico di Milano.</p>
+  </div>
+</section>
+
+<!-- ============ CONTATTI ============ -->
+<section class="sez" id="contatti">
+  <div class="wrap">
+    <div class="chiusura rivela">
+      <h2>Partiamo dal Politecnico di Milano.</h2>
+      <p>Domande, collaborazioni con associazioni studentesche o segnalazioni: scrivici, ti rispondiamo noi due.</p>
+      <div class="hero-actions">
+        <a class="btn btn-bianco" href="mailto:cda.unibooks@gmail.com">cda.unibooks@gmail.com</a>
+        <a class="btn btn-vetro" href="https://www.instagram.com/unibooks.it" target="_blank" rel="noopener">Instagram</a>
       </div>
     </div>
   </div>
 </section>
 
-<div class="wrap" id="contatti">
-  <div class="chiusura">
-    <h2>Partiamo dal Politecnico di Milano.</h2>
-    <p>Domande, collaborazioni con associazioni studentesche o segnalazioni: scrivici, ti rispondiamo noi due.</p>
-    <div class="hero-actions">
-      <a class="btn btn-bianco" href="mailto:cda.unibooks@gmail.com">cda.unibooks@gmail.com</a>
-      <a class="btn btn-vetro" href="https://www.instagram.com/unibooks.it" target="_blank" rel="noopener">Instagram</a>
-    </div>
-  </div>
-</div>
-
-<footer>
+<footer class="piede">
   <div class="wrap">
     <div class="foot">
       <a class="brand" href="#top">
@@ -651,5 +454,7 @@
   </div>
 </footer>
 
+<script src="stile/sito.js"></script>
+<script src="stile/home.js"></script>
 </body>
 </html>
