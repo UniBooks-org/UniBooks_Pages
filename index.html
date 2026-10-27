@@ -13,7 +13,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231565C0'/%3E%3Cpath d='M16 13a2 2 0 0 1 2-2h20v34l-9-4.6L16 51z' fill='%23fff'/%3E%3Cpath d='M39.5 11H46a2 2 0 0 1 2 2v38l-8.5-4.4z' fill='%23fff'/%3E%3C/svg%3E">
 <link href="fonts/fonts.css?v=2" rel="stylesheet">
 <link href="stile/sito.css?v=2" rel="stylesheet">
-<link href="stile/home.css?v=2" rel="stylesheet">
+<link href="stile/home.css?v=3" rel="stylesheet">
 </head>
 <body>
 
@@ -48,6 +48,11 @@
       <a class="btn btn-chiaro" href="#costi">Quanto costa?</a>
     </div>
     <p class="store-note entra" style="animation-delay:1s"><span class="dot"></span> In arrivo su App Store e Google Play</p>
+    <!-- Al lancio: togliere "hidden" dai due blocchi .store-btns e cancellare la riga .store-note qui sopra. -->
+    <div class="store-btns entra" style="animation-delay:1s" hidden>
+      <a class="btn btn-store" href="https://apps.apple.com/it/app/id6810596502" target="_blank" rel="noopener"><small>Scarica su</small> App Store</a>
+      <a class="btn btn-store" href="https://play.google.com/store/apps/details?id=org.unibooks.app" target="_blank" rel="noopener"><small>Disponibile su</small> Google Play</a>
+    </div>
 
     <div class="palco" aria-hidden="true">
       <div class="fluttua f1"><span class="ic" style="background:var(--tinta-arancio)">💬</span><div><b>Nuova offerta: 15 €</b><small>Analisi Matematica 1</small></div></div>
@@ -428,6 +433,10 @@
     <div class="chiusura rivela">
       <h2>Partiamo dal Politecnico di Milano.</h2>
       <p>Domande, collaborazioni con associazioni studentesche o segnalazioni: scrivici, ti rispondiamo noi due.</p>
+      <div class="hero-actions store-btns" hidden>
+        <a class="btn btn-bianco" href="https://apps.apple.com/it/app/id6810596502" target="_blank" rel="noopener">App Store</a>
+        <a class="btn btn-bianco" href="https://play.google.com/store/apps/details?id=org.unibooks.app" target="_blank" rel="noopener">Google Play</a>
+      </div>
       <div class="hero-actions">
         <a class="btn btn-bianco" href="mailto:cda.unibooks@gmail.com">cda.unibooks@gmail.com</a>
         <a class="btn btn-vetro" href="https://www.instagram.com/unibooks.it" target="_blank" rel="noopener">Instagram</a>
