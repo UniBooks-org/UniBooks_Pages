@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniThread — Pagamenti attivati</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #F2F2F7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 24px;
+    }
+    .card { max-width: 340px; }
+    .icona {
+      width: 72px; height: 72px; background: #E8F5E9; border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px; font-size: 36px;
+    }
+    h1 { font-size: 20px; color: #1C1C1E; margin: 0 0 8px; }
+    p { font-size: 14px; color: #6E6E73; line-height: 1.5; margin: 0 0 24px; }
+    a.btn {
+      display: inline-block; background: #1259A9; color: #fff; text-decoration: none;
+      font-weight: 600; font-size: 15px; padding: 14px 28px; border-radius: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icona">✅</div>
+    <h1>Pagamenti attivati!</h1>
+    <p>Stiamo per riportarti dentro UniThread. Se non succede automaticamente, tocca il pulsante qui sotto.</p>
+    <a class="btn" href="unibooks://stripe-onboarding-completo">Torna a UniThread</a>
+  </div>
+  <script>
+    window.location.href = "unibooks://stripe-onboarding-completo";
+  </script>
+</body>
+</html>
