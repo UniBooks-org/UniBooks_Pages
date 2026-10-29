@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniThread — Email confermata</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #F2F2F7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 24px;
+    }
+    .card { max-width: 340px; }
+    .icona {
+      width: 72px; height: 72px; background: #E8F5E9; border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px; font-size: 36px;
+    }
+    .icona.errore { background: #FDECEA; }
+    h1 { font-size: 20px; color: #1C1C1E; margin: 0 0 8px; }
+    p { font-size: 14px; color: #6E6E73; line-height: 1.5; margin: 0 0 24px; }
+    a.btn {
+      display: inline-block; background: #1259A9; color: #fff; text-decoration: none;
+      font-weight: 600; font-size: 15px; padding: 14px 28px; border-radius: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icona" id="icona">✅</div>
+    <h1 id="titolo">Email confermata!</h1>
+    <p id="testo">Il tuo account è attivo. Stiamo per riportarti dentro UniThread. Se non succede automaticamente, tocca il pulsante qui sotto.</p>
+    <a class="btn" href="unibooks://">Apri UniThread</a>
+  </div>
+  <script>
+    // Supabase rimanda qui anche quando il link è scaduto o già usato,
+    // con l'errore nel frammento (#error=...&error_code=otp_expired).
+    var parametri = new URLSearchParams(window.location.hash.slice(1) || window.location.search.slice(1));
+    if (parametri.get("error") || parametri.get("error_code")) {
+      document.getElementById("icona").textContent = "⚠️";
+      document.getElementById("icona").className = "icona errore";
+      document.getElementById("titolo").textContent = "Link non più valido";
+      document.getElementById("testo").textContent =
+        "Il link di conferma è scaduto o è già stato usato. Se hai già confermato l'email, accedi pure dall'app. Altrimenti scrivici a cda.unibooks@gmail.com e ti aiutiamo.";
+    } else {
+      window.location.href = "unibooks://";
+    }
+  </script>
+</body>
+</html>
